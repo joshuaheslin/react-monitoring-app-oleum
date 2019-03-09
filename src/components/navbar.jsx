@@ -31,14 +31,14 @@ export default class NavBar extends Component {
           <NavbarBrand>Oleum Analytics</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+            {/* <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/turbine">Turbine Data</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/metrics">Metrics</NavLink>
               </NavItem>
-            </Nav>
+            </Nav> */}
           </Collapse>
         </Navbar>
       </div>

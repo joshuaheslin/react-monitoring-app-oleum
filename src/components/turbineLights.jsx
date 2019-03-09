@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Badge } from "reactstrap";
+import { Row, Col, Badge, Button, ButtonGroup } from "reactstrap";
 import axios from "axios";
 
 class TurbineLights extends Component {
@@ -21,14 +21,32 @@ class TurbineLights extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* <Row>
-          <h3>Oil Monitoring Indicator</h3>
-        </Row> */}
         <Row>
           <Col>
-            <Badge color="success">Success</Badge>
+            <h1>
+              <Badge color="success" large>
+                System OK
+              </Badge>
+            </h1>
+            <Row>
+              <Col xs="6"> Current Temp</Col>
+              <Col> Threshold Temp</Col>
+            </Row>
+            <Row>
+              <Col xs="6">
+                <h1> 24 °C </h1>
+              </Col>
+              <Col>
+                {" "}
+                <h1> 30 °C </h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="6"> </Col>
+              <Col />
+            </Row>
           </Col>
-          <Col>
+          {/* <Col>
             <Badge color="warning">Warning</Badge>
           </Col>
           <Col>
@@ -36,7 +54,7 @@ class TurbineLights extends Component {
           </Col>
           <Col>
             <Badge color="danger">Danger</Badge>
-          </Col>
+          </Col> */}
         </Row>
       </React.Fragment>
     );

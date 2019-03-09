@@ -8,11 +8,11 @@ class TurbineGraph extends Component {
     serverTemperatures: {},
     graphData: {
       label: "Series 1",
-      data: [{}]
+      data: []
     },
     graphDataTwo: {
       label: "Series 2",
-      data: [{}]
+      data: []
     }
   };
 
@@ -23,27 +23,31 @@ class TurbineGraph extends Component {
 
   async getServerData() {
     const serverTemperatures = await axios.get(
-      "https://hardwareswbne.v1.readiness.io/tmp?since=1552112015571&limit=10"
+      "https://hardwareswbne.v1.readiness.io/tmp?since=1552127274165&limit=80"
     );
-    //console.log(serverTemperatures);
+    console.log(serverTemperatures.data);
 
     const serverData = serverTemperatures.data;
 
-    const newData = [{}];
-    const newDataTwo = [{}];
+    const newData = [];
+    const newDataTwo = [];
+
     for (let index = 0; index < serverData.length; ++index) {
-      console.log(serverData[index]);
+      //console.log(serverData[index]);
+      const reading = serverData[index].reading;
+      const timestamp = serverData[index].inserted_at;
       newData.push({
-        x: serverData[index].inserted_at,
-        y: serverData[index].reading
+        x: timestamp,
+        y: reading
       });
-      const inverse = (1 / (serverData[index].reading * 0.02)).toString();
-      console.log(inverse);
+      const inverse = 1 / (reading * 0.02);
+      //console.log(inverse);
       newDataTwo.push({
-        x: serverData[index].inserted_at,
+        x: timestamp,
         y: inverse
       });
     }
+    this.checkFlag(serverData);
 
     const graphData = { ...this.state.graphData };
     const graphDataTwo = { ...this.state.graphDataTwo };
@@ -52,8 +56,25 @@ class TurbineGraph extends Component {
     this.setState({ serverTemperatures, graphData, graphDataTwo });
   }
 
+  async checkFlag(serverData) {
+    if (serverData.flag == 1) {
+      let response = await axios.post(
+        "https://oleum-node.herokuapp.com/sms/+61431473207"
+      );
+      console.log(response);
+      response = await axios.post(
+        "https://oleum-node.herokuapp.com/sms/+61429959598"
+      );
+      console.log(response);
+      response = await axios.post(
+        "https://oleum-node.herokuapp.com/sms/+61423114926"
+      );
+      console.log(response);
+    }
+  }
+
   startTimer() {
-    setInterval(() => this.getServerData(), 2000);
+    setInterval(() => this.getServerData(), 1000);
   }
 
   render() {
@@ -62,14 +83,15 @@ class TurbineGraph extends Component {
     };
 
     const { graphData, graphDataTwo } = this.state;
-    console.log(graphData);
-    console.log(graphDataTwo);
+    //console.log(graphData);
+    //console.log(graphDataTwo);
+
     return (
       <React.Fragment>
         <div
           style={{
-            width: "400px",
-            height: "300px"
+            width: "800px",
+            height: "500px"
           }}
         >
           <Chart
@@ -80,7 +102,7 @@ class TurbineGraph extends Component {
               }
               // {
               //   label: "Series 2",
-              //   data: graphData.data
+              //   data: graphDataTwo.data //[{ x: 12, y: 12 }, { x: 12, y: 12 }]
               // }
             ]}
             axes={[

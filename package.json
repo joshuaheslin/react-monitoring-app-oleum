@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
     "react": "^16.8.4",
     "react-charts": "^2.0.0-alpha.12",
     "react-dom": "^16.8.4",

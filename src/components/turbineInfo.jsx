@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import TurbineGraph from "./turbineGraph";
 import { Container, Row, Col, Badge, Button } from "reactstrap";
 import TurbineLights from "./turbineLights";
+import axios from "axios";
 //import { sendTwilioSMS } from "../services/twilio";
 
 class TurbineInfo extends Component {
   state = {};
 
-  // sendSMS() {
-  //   sendTwilioSMS();
-  // }
+  async sendSMS() {
+    const response = await axios.post("https://oleum-node.herokuapp.com/sms");
+    console.log(response);
+  }
 
   render() {
     const styles = {
