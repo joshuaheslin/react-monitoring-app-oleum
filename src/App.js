@@ -21,6 +21,7 @@ class App extends Component {
           <NavTab />
           <Route path="/turbine" component={TurbineInfo} />
           <Route path="/metrics" component={Metrics} />
+          <Redirect from="/" exact to="/turbine" />
         </Container>
       </div>
     );
