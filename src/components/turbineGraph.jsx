@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Badge } from "reactstrap";
+import { Badge, Row, Col } from "reactstrap";
 import axios from "axios";
 import { Chart } from "react-charts";
+import TurbineLights from "./turbineLights";
 
 class TurbineGraph extends Component {
   state = {
@@ -13,7 +14,8 @@ class TurbineGraph extends Component {
     graphDataTwo: {
       label: "Series 2",
       data: []
-    }
+    },
+    latestReading: 24
   };
 
   async componentDidMount() {
@@ -31,6 +33,7 @@ class TurbineGraph extends Component {
 
     const newData = [];
     const newDataTwo = [];
+    let latestReading = 0;
 
     for (let index = 0; index < serverData.length; ++index) {
       //console.log(serverData[index]);
@@ -46,6 +49,7 @@ class TurbineGraph extends Component {
         x: timestamp,
         y: inverse
       });
+      latestReading = serverData[serverData.length - 1].reading;
     }
     this.checkFlag(serverData);
 
@@ -53,7 +57,12 @@ class TurbineGraph extends Component {
     const graphDataTwo = { ...this.state.graphDataTwo };
     graphData.data = newData;
     graphDataTwo.data = newDataTwo;
-    this.setState({ serverTemperatures, graphData, graphDataTwo });
+    this.setState({
+      serverTemperatures,
+      graphData,
+      graphDataTwo,
+      latestReading
+    });
   }
 
   async checkFlag(serverData) {
@@ -88,30 +97,32 @@ class TurbineGraph extends Component {
 
     return (
       <React.Fragment>
-        <div
-          style={{
-            width: "800px",
-            height: "500px"
-          }}
-        >
-          <Chart
-            data={[
-              {
-                label: "Series 1",
-                data: graphData.data
-              }
-              // {
-              //   label: "Series 2",
-              //   data: graphDataTwo.data //[{ x: 12, y: 12 }, { x: 12, y: 12 }]
-              // }
-            ]}
-            axes={[
-              { primary: true, type: "linear", position: "bottom" },
-              { type: "linear", position: "left" }
-            ]}
-            style={style}
-          />
-        </div>
+        <Col>
+          {" "}
+          <div
+            style={{
+              width: "700px",
+              height: "500px"
+            }}
+          >
+            <Chart
+              data={[
+                {
+                  label: "Series 1",
+                  data: graphData.data
+                }
+              ]}
+              axes={[
+                { primary: true, type: "linear", position: "bottom" },
+                { type: "linear", position: "left" }
+              ]}
+              style={style}
+            />
+          </div>
+        </Col>
+        <Col>
+          <TurbineLights latestReading={this.state.latestReading} />
+        </Col>
       </React.Fragment>
     );
   }

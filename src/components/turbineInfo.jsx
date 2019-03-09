@@ -23,12 +23,10 @@ class TurbineInfo extends Component {
           Wind Turbine <Badge color="secondary">Data</Badge>
         </h3>
         <Row>
-          <Col>
+          <TurbineGraph />
+          {/* <Col>
             <TurbineGraph />
-          </Col>
-          <Col>
-            <TurbineLights />
-          </Col>
+          </Col> */}
         </Row>
         <Button onClick={this.sendSMS}>Send SMS</Button>
       </React.Fragment>

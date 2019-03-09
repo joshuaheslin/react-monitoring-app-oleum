@@ -3,29 +3,30 @@ import { Row, Col, Badge, Button, ButtonGroup } from "reactstrap";
 import axios from "axios";
 
 class TurbineLights extends Component {
-  state = {
-    serverTemperatures: {},
-    graphData: {
-      label: "Series 1",
-      data: [{}]
-    }
-  };
-  async componentDidMount() {
-    const serverTemperatures = await axios.get(
-      "https://hardwareswbne.v1.readiness.io/tmp?since=0"
-    );
-    //console.log(serverTemperatures);
-    this.setState({ serverTemperatures });
-  }
-
   render() {
+    let latestReading = this.props.latestReading;
+    let displayTemp = Math.round(latestReading * 10) / 10;
+    //displayTemp = 0;
+    var thresholdTemp = 30;
+
+    let badgeColour = "success";
+    let badgeMessage = "System OK";
+
+    if (displayTemp > thresholdTemp) {
+      badgeColour = "warning";
+      badgeMessage = "Change Oil";
+    } else if (displayTemp === 0) {
+      badgeColour = "danger";
+      badgeMessage = "No connection";
+    }
+
     return (
       <React.Fragment>
         <Row>
           <Col>
             <h1>
-              <Badge color="success" large>
-                System OK
+              <Badge color={badgeColour} large>
+                {badgeMessage}
               </Badge>
             </h1>
             <Row>
@@ -34,7 +35,7 @@ class TurbineLights extends Component {
             </Row>
             <Row>
               <Col xs="6">
-                <h1> 24 °C </h1>
+                <h1> {displayTemp} °C </h1>
               </Col>
               <Col>
                 {" "}
@@ -46,15 +47,6 @@ class TurbineLights extends Component {
               <Col />
             </Row>
           </Col>
-          {/* <Col>
-            <Badge color="warning">Warning</Badge>
-          </Col>
-          <Col>
-            <Badge color="danger">Danger</Badge>
-          </Col>
-          <Col>
-            <Badge color="danger">Danger</Badge>
-          </Col> */}
         </Row>
       </React.Fragment>
     );
