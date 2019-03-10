@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink
 } from "reactstrap";
+import logo from "../files/logo.png";
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -28,7 +29,10 @@ export default class NavBar extends Component {
     return (
       <div>
         <Navbar color="light" expand="md">
-          <NavbarBrand>Oleum Analytics</NavbarBrand>
+          <NavbarBrand>
+            {" "}
+            <img src={logo} width="50" height="50" alt="logo" /> Oleum Analytics
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {/* <Nav className="ml-auto" navbar>

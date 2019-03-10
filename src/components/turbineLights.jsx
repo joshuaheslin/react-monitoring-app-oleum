@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Badge, Button, ButtonGroup } from "reactstrap";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 class TurbineLights extends Component {
   render() {
@@ -15,9 +16,11 @@ class TurbineLights extends Component {
     if (displayTemp > thresholdTemp) {
       badgeColour = "warning";
       badgeMessage = "Change Oil";
+      //toast.warn("Oil temperature is too high. Please check it.");
     } else if (displayTemp === 0) {
       badgeColour = "danger";
       badgeMessage = "No connection";
+      //toast.warn("Connection lost! Please reconnect immediately");
     }
 
     return (

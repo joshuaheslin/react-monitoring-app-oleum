@@ -4,6 +4,10 @@ import axios from "axios";
 import { Chart } from "react-charts";
 import TurbineLights from "./turbineLights";
 
+import CanvasJSReact from "../canvasjs-2.3.1/canvasjs.react";
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 class TurbineGraph extends Component {
   state = {
     serverTemperatures: {},
@@ -25,7 +29,7 @@ class TurbineGraph extends Component {
 
   async getServerData() {
     const serverTemperatures = await axios.get(
-      "https://hardwareswbne.v1.readiness.io/tmp?since=1552127274165&limit=80"
+      "https://hardwareswbne.v1.readiness.io/tmp?limit=20" //since=1552144765&
     );
     console.log(serverTemperatures.data);
 
@@ -40,8 +44,8 @@ class TurbineGraph extends Component {
       const reading = serverData[index].reading;
       const timestamp = serverData[index].inserted_at;
       newData.push({
-        x: timestamp,
-        y: reading
+        x: timestamp / 1000000000,
+        y: parseFloat(reading)
       });
       const inverse = 1 / (reading * 0.02);
       //console.log(inverse);
@@ -51,7 +55,7 @@ class TurbineGraph extends Component {
       });
       latestReading = serverData[serverData.length - 1].reading;
     }
-    this.checkFlag(serverData);
+    //this.checkFlag(serverData);
 
     const graphData = { ...this.state.graphData };
     const graphDataTwo = { ...this.state.graphDataTwo };
@@ -65,22 +69,22 @@ class TurbineGraph extends Component {
     });
   }
 
-  async checkFlag(serverData) {
-    if (serverData.flag == 1) {
-      let response = await axios.post(
-        "https://oleum-node.herokuapp.com/sms/+61431473207"
-      );
-      console.log(response);
-      response = await axios.post(
-        "https://oleum-node.herokuapp.com/sms/+61429959598"
-      );
-      console.log(response);
-      response = await axios.post(
-        "https://oleum-node.herokuapp.com/sms/+61423114926"
-      );
-      console.log(response);
-    }
-  }
+  // async checkFlag(serverData) {
+  //   if (serverData.flag == 1) {
+  //     let response = await axios.post(
+  //       "https://oleum-node.herokuapp.com/sms/+61431473207"
+  //     );
+  //     console.log(response);
+  //     response = await axios.post(
+  //       "https://oleum-node.herokuapp.com/sms/+61429959598"
+  //     );
+  //     console.log(response);
+  //     response = await axios.post(
+  //       "https://oleum-node.herokuapp.com/sms/+61423114926"
+  //     );
+  //     console.log(response);
+  //   }
+  // }
 
   startTimer() {
     setInterval(() => this.getServerData(), 1000);
@@ -92,37 +96,74 @@ class TurbineGraph extends Component {
     };
 
     const { graphData, graphDataTwo } = this.state;
+    const data = graphData.data;
     //console.log(graphData);
     //console.log(graphDataTwo);
 
+    const options = {
+      animationEnabled: true,
+      exportEnabled: true,
+      theme: "light2", // "light1", "dark1", "dark2"
+      title: {
+        text: ""
+      },
+      axisY: {
+        title: "Temperature",
+        includeZero: true,
+        suffix: " °C"
+      },
+      axisX: {
+        title: "Time",
+        prefix: "",
+        interval: 2
+      },
+      data: [
+        {
+          type: "line",
+          toolTipContent: "Temp: {y} °C",
+          dataPoints: data //[{ x: 1, y: 64 }, { x: 2, y: 61 }]
+        }
+      ]
+    };
+
     return (
       <React.Fragment>
-        <Col>
-          {" "}
-          <div
+        <Row>
+          <Col xs={8}>
+            <CanvasJSChart options={options} />
+            {/* <div
             style={{
               width: "700px",
-              height: "500px"
+              height: "500px",
+              primaryAxes: "0"
             }}
           >
-            <Chart
+            {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+            {/* <Chart
               data={[
                 {
-                  label: "Series 1",
+                  label: "Oil Temperature",
                   data: graphData.data
                 }
+                // {
+                //   label: "Series 2",
+                //   data: [{ x: 0, y: 0 }, { x: 0, y: 50 }]
+                // }
               ]}
               axes={[
-                { primary: true, type: "linear", position: "bottom" },
+                { primary: true, type: "time", position: "bottom", show: true },
                 { type: "linear", position: "left" }
               ]}
               style={style}
-            />
-          </div>
-        </Col>
-        <Col>
-          <TurbineLights latestReading={this.state.latestReading} />
-        </Col>
+              // primaryCursor
+              // secondaryCursor
+              tooltip
+            /> */}
+          </Col>
+          <Col>
+            <TurbineLights latestReading={this.state.latestReading} />
+          </Col>
+        </Row>
       </React.Fragment>
     );
   }

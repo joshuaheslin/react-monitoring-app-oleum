@@ -1,23 +1,26 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Nav, NavItem, NavLink } from "reactstrap";
+import { NavLink } from "react-router-dom";
+import { Nav, NavItem } from "reactstrap";
+import logo from "../files/logo.png";
 
 class NavBar extends Component {
   state = {};
   render() {
     return (
-      <Nav tabs>
-        <NavItem>
-          <NavLink tag={Link} to="/turbine">
-            Turbines
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to="/metrics">
-            Metrics
-          </NavLink>
-        </NavItem>
-      </Nav>
+      <React.Fragment>
+        <Nav tabs>
+          <NavItem>
+            <NavLink to="/turbine" className="nav-link">
+              Turbines
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/metrics" className="nav-link">
+              Metrics
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </React.Fragment>
     );
   }
 }

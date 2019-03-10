@@ -4,6 +4,8 @@ import { Container, Row, Col, Badge, Button } from "reactstrap";
 import TurbineLights from "./turbineLights";
 import axios from "axios";
 //import { sendTwilioSMS } from "../services/twilio";
+import { toast } from "react-toastify";
+import Graph from "./graph";
 
 class TurbineInfo extends Component {
   state = {};
@@ -23,10 +25,11 @@ class TurbineInfo extends Component {
           Wind Turbine <Badge color="secondary">Data</Badge>
         </h3>
         <Row>
-          <TurbineGraph />
-          {/* <Col>
+          {/* <Graph /> */}
+          {/* <TurbineGraph /> */}
+          <Col>
             <TurbineGraph />
-          </Col> */}
+          </Col>
         </Row>
         <Button onClick={this.sendSMS}>Send SMS</Button>
       </React.Fragment>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MetricCard from "./metricCard";
 import { Row, Col, Badge } from "reactstrap";
+import Chart from "chart.js";
 
 class Metrics extends Component {
   state = {};
