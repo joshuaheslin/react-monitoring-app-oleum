@@ -7,7 +7,7 @@ class TurbineLights extends Component {
   render() {
     let latestReading = this.props.latestReading;
     let displayTemp = Math.round(latestReading * 10) / 10;
-    //displayTemp = 20;
+    //displayTemp = 0;
     var thresholdTemp = 30;
 
     let badgeColour = "success";

@@ -26,15 +26,23 @@ export default class NavBar extends Component {
   }
   render() {
     let { user } = this.props;
+    const style = {
+      color: "#000"
+    };
     return (
       <div>
-        <Navbar color="light" expand="md">
-          <NavbarBrand>
-            {" "}
+        <Navbar expand="md" className="navbar-custom">
+          <NavbarBrand style={style} className="navbar-custom">
             <img src={logo} width="50" height="50" alt="logo" /> Oleum Analytics
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+/*          <Collapse isOpen={this.state.isOpen} navbar>
             {/* <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/turbine">Turbine Data</NavLink>
@@ -42,10 +50,4 @@ export default class NavBar extends Component {
               <NavItem>
                 <NavLink href="/metrics">Metrics</NavLink>
               </NavItem>
-            </Nav> */}
-          </Collapse>
-        </Navbar>
-      </div>
-    );
-  }
-}
+            </Nav> */

@@ -10,6 +10,16 @@ body {
 
 .navbar {
   margin-bottom: 15px;
+  background-color: #cb9f22;
+}
+
+.navbar-custom {
+  color: #cb9f22;
+  background-color: #cb9f22;
+}
+
+.navbar-header {
+  background-color: #f16e10;
 }
 
 code {
