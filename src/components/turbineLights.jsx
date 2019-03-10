@@ -7,20 +7,31 @@ class TurbineLights extends Component {
   render() {
     let latestReading = this.props.latestReading;
     let displayTemp = Math.round(latestReading * 10) / 10;
-    //displayTemp = 0;
+    //displayTemp = 20;
     var thresholdTemp = 30;
 
     let badgeColour = "success";
     let badgeMessage = "System OK";
 
+    let toastIdHigh = "warning";
+    let toastIdLow = "zero";
+
     if (displayTemp > thresholdTemp) {
       badgeColour = "warning";
-      badgeMessage = "Change Oil";
-      //toast.warn("Oil temperature is too high. Please check it.");
+      badgeMessage = "High Temperature";
+      if (!toast.isActive(toastIdHigh)) {
+        toast.warn("Oil temperature is too high. Please check it.", {
+          toastId: toastIdHigh
+        });
+      }
     } else if (displayTemp === 0) {
       badgeColour = "danger";
       badgeMessage = "No connection";
-      //toast.warn("Connection lost! Please reconnect immediately");
+      if (!toast.isActive(toastIdLow)) {
+        toast.error("Connection lost! Please reconnect the sensor", {
+          toastId: toastIdLow
+        });
+      }
     }
 
     return (

@@ -19,6 +19,16 @@ class Metrics extends Component {
         title: "40%",
         subtitle: "Performance",
         description: "No criticals, no errors, no warnings, no notices"
+      },
+      {
+        title: "82%",
+        subtitle: "Tasks",
+        description: "No criticals, no errors, no warnings, no notices"
+      },
+      {
+        title: "12%",
+        subtitle: "Downtime",
+        description: "No criticals, no errors, no warnings, no notices"
       }
     ];
     return (
@@ -34,10 +44,10 @@ class Metrics extends Component {
             <MetricCard info={info[1]} />
           </Col>
           <Col>
-            <MetricCard info={info[1]} />
+            <MetricCard info={info[2]} />
           </Col>
           <Col>
-            <MetricCard info={info[1]} />
+            <MetricCard info={info[3]} />
           </Col>
         </Row>
         {/* <Button onClick={this.sendSMS}>Send SMS</Button> */}
