@@ -19,9 +19,10 @@ class App extends Component {
         <NavBar />
         <Container>
           <NavTab />
+          <Route exact path="/turbine/:limit" component={TurbineInfo} />
           <Route path="/turbine" component={TurbineInfo} />
           <Route path="/metrics" component={Metrics} />
-          <Redirect from="/" exact to="/turbine" />
+          <Redirect from="/" to="/turbine" />
         </Container>
       </div>
     );

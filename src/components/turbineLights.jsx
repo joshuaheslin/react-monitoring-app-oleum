@@ -18,9 +18,9 @@ class TurbineLights extends Component {
 
     if (displayTemp > thresholdTemp) {
       badgeColour = "warning";
-      badgeMessage = "High Temperature";
+      badgeMessage = "Soot Content";
       if (!toast.isActive(toastIdHigh)) {
-        toast.warn("Oil temperature is too high. Please check it.", {
+        toast.warn("Soot content is too high. Please check it.", {
           toastId: toastIdHigh
         });
       }
@@ -44,16 +44,22 @@ class TurbineLights extends Component {
               </Badge>
             </h1>
             <Row>
-              <Col xs="6"> Current Temp</Col>
-              <Col> Threshold Temp</Col>
+              <Col xs="6"> Current</Col>
+              <Col> Threshold</Col>
             </Row>
             <Row>
               <Col xs="6">
-                <h1> {displayTemp} °C </h1>
+                <h1>
+                  {" "}
+                  {displayTemp} <small>ppm</small>
+                </h1>
               </Col>
               <Col>
                 {" "}
-                <h1> 30 °C </h1>
+                <h1>
+                  {" "}
+                  30 <small>ppm</small>{" "}
+                </h1>
               </Col>
             </Row>
             <Row>

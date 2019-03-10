@@ -30,9 +30,9 @@ class TurbineGraph extends Component {
 
   async getServerData() {
     const serverTemperatures = await axios.get(
-      "https://hardwareswbne.v1.readiness.io/tmp?limit=20" //since=1552144765&
+      "https://hardwareswbne.v1.readiness.io/tmp?limit=30" //since=1552144765&
     );
-    console.log(serverTemperatures.data);
+    //console.log(serverTemperatures.data);
 
     const serverData = serverTemperatures.data;
 
@@ -100,6 +100,7 @@ class TurbineGraph extends Component {
     const data = graphData.data;
     //console.log(graphData);
     //console.log(graphDataTwo);
+    console.log("Rendered");
 
     const sampleData = [
       { x: 1, y: 64 },
@@ -127,6 +128,9 @@ class TurbineGraph extends Component {
       { x: 23, y: 59 }
     ];
 
+    const limit = this.props.limit;
+    console.log("limit", limit);
+
     const options = {
       animationEnabled: true,
       exportEnabled: true,
@@ -135,9 +139,9 @@ class TurbineGraph extends Component {
         text: ""
       },
       axisY: {
-        title: "Temperature",
+        title: "Soot",
         includeZero: true,
-        suffix: " °C"
+        suffix: " %"
       },
       axisX: {
         title: "Time",
@@ -147,7 +151,7 @@ class TurbineGraph extends Component {
       data: [
         {
           type: "line",
-          toolTipContent: "Temp: {y} °C",
+          toolTipContent: "Soot: {y} %",
           dataPoints: data //sampleData // data //[{ x: 1, y: 64 }, { x: 2, y: 61 }]
         }
       ]

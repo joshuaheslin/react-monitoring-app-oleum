@@ -19,6 +19,9 @@ class TurbineInfo extends Component {
     const styles = {
       padding: "15px"
     };
+    const limit = this.props.match.params.limit;
+    console.log(limit);
+
     return (
       <React.Fragment>
         <h3 style={styles}>
@@ -28,7 +31,7 @@ class TurbineInfo extends Component {
           {/* <Graph /> */}
           {/* <TurbineGraph /> */}
           <Col>
-            <TurbineGraph />
+            <TurbineGraph limit={limit} />
           </Col>
         </Row>
         <Button onClick={this.sendSMS}>View Full Report</Button>
