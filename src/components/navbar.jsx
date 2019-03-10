@@ -27,12 +27,12 @@ export default class NavBar extends Component {
   render() {
     let { user } = this.props;
     const style = {
-      color: "#000"
+      color: "#FFFFFF"
     };
     return (
       <div>
-        <Navbar expand="md" className="navbar-custom">
-          <NavbarBrand style={style} className="navbar-custom">
+        <Navbar color="dark" bg="dark" expand="md">
+          <NavbarBrand style={style} className="myClass">
             <img src={logo} width="50" height="50" alt="logo" /> Oleum Analytics
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
