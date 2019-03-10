@@ -31,7 +31,7 @@ class TurbineInfo extends Component {
             <TurbineGraph />
           </Col>
         </Row>
-        <Button onClick={this.sendSMS}>Send SMS</Button>
+        <Button onClick={this.sendSMS}>View Full Report</Button>
       </React.Fragment>
     );
   }

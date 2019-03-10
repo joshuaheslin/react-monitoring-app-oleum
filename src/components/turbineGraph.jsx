@@ -3,6 +3,7 @@ import { Badge, Row, Col } from "reactstrap";
 import axios from "axios";
 import { Chart } from "react-charts";
 import TurbineLights from "./turbineLights";
+import Metrics from "./metrics";
 
 import CanvasJSReact from "../canvasjs-2.3.1/canvasjs.react";
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -190,6 +191,11 @@ class TurbineGraph extends Component {
             <TurbineLights latestReading={this.state.latestReading} />
           </Col>
         </Row>
+        {/* <Row>
+          <Col>
+            <Metrics />
+          </Col>
+        </Row> */}
       </React.Fragment>
     );
   }
