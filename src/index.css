@@ -11,10 +11,6 @@ body {
 .navbar {
   margin-bottom: 15px;
 }
-.navbar-custom {
-  color: #ffffff;
-  background-color: #cb9f22;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

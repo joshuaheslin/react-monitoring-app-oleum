@@ -27,7 +27,8 @@ export default class NavBar extends Component {
   render() {
     let { user } = this.props;
     const style = {
-      color: "#FFFFFF"
+      color: "#FFFFFF",
+      fontSize: 30
     };
     return (
       <div>
